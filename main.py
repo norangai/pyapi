@@ -3,7 +3,7 @@ import numpy as np
 import uvicorn
 from transformers import ElectraForSequenceClassification, ElectraTokenizer
 from pydantic import BaseModel
-import torch
+#import torch
  
 app = FastAPI()
  
@@ -15,8 +15,8 @@ async def sentiment_classification(data:Data):
    
     model.eval()
     pt_inputs = tokenizer(data.sentence, return_tensors="pt")
-    with torch.no_grad():
-        output = model(**pt_inputs)
+    #with torch.no_grad():
+    output = model(**pt_inputs)
    
     return {"message": labels[np.argmax(output.logits.cpu().numpy())]}
  
